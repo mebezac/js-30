@@ -1,10 +1,10 @@
-function playSound(event) {
-  const audio = document.querySelector(`audio[data-key="${event.keyCode}"]`)
-  const key = document.querySelector(`.key[data-key="${event.keyCode}"]`)
+function playSound(key) {
+  const audio = document.querySelector(`audio[data-key="${key}"]`)
+  const keyDiv = document.querySelector(`.key[data-key="${key}"]`)
   if (!audio) return
   audio.currentTime = 0 // Restarts sound if key pressed again
   audio.play()
-  key.classList.add('playing')
+  keyDiv.classList.add('playing')
 }
 
 function removeTransition(event) {
@@ -12,7 +12,9 @@ function removeTransition(event) {
   this.classList.remove('playing')
 }
 
-window.addEventListener('keydown', playSound)
+window.addEventListener('keydown', (event) => playSound(event.keyCode))
 
 const keys = document.querySelectorAll('.key')
 keys.forEach(key => key.addEventListener('transitionend', removeTransition))
+keys.forEach(key => key.addEventListener('mousedown', (event) => playSound(key.dataset.key)))
+keys.forEach(key => key.addEventListener('touchstart', (event) => playSound(key.dataset.key)))
