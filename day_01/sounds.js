@@ -16,8 +16,4 @@ window.addEventListener('keydown', (event) => playSound(event.keyCode))
 
 const keys = document.querySelectorAll('.key')
 keys.forEach(key => key.addEventListener('transitionend', removeTransition))
-keys.forEach(key => key.addEventListener('mousedown', (event) => playSound(key.dataset.key)))
-keys.forEach(key => key.addEventListener('touchstart', (event) => {
-  playSound(key.dataset.key)
-  event.preventDefault()
-}))
+keys.forEach(key => key.addEventListener('touchstart', (event) => playSound(key.dataset.key)))
